@@ -66,25 +66,7 @@ ExpressRoute Direct is a dedicated physical connection to the Microsoft backbone
 
 ## by default
 
-The data flow between On-Prem and Azure using ExpressRoute is asymmetric by design. 
 
-Traffic from On-Prem to Azure transits via the ExpressRoute Gateway but the return traffic (Azure to On-Prem) bypasses the ExpressRoute Gateway and is forwarded directly to the MSEEs.
-
-![](images/ExRGwDataPath.gif)
-
-If multiple ExpressRoute Circuits are advertising copies of the same On-Prem routes and are connected to the same ExpressRoute Gateway, Azure to On-Prem traffic is ECMPed across the different ExpressRoute Circuits available unless traffic engineering is configured to prioritise 1 path over the others.
-
-## ExpressRoute FastPath
-
-With the [ExpressRoute FastPath](https://learn.microsoft.com/en-us/azure/expressroute/about-fastpath) feature enabled, the On-Prem to Azure traffic bypasses the ExpressRoute Gateway as well, to improve the data path performance.
-
-![](images/ExRGwDataPathFastPath.gif)
-
-Current constraints and limitations:
-- Available only on Ultra Performance or ErGw3AZ 
-- [IP address limit](https://learn.microsoft.com/en-us/azure/expressroute/about-fastpath#ip-address-limits)
-- Limited support of Private Link for ExpressRoute Direct circuits only, not supported at all on ExpresRoute partner circuits
-- FastPath support for [UDRs](https://learn.microsoft.com/en-us/azure/expressroute/about-fastpath#user-defined-routes-udrs) on the Gateway subnet and for [VNet peering](https://learn.microsoft.com/en-us/azure/expressroute/about-fastpath#virtual-network-vnet-peering) is still in preview and available for ExpressDirect circuits only.
 
 
 
