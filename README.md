@@ -1,6 +1,6 @@
 # Understanding ExpressRoute private peering to address ExpressRoute resiliency
 
-> No breaking news here, just an illustrated recap of the the recommendations and attention points highlighted here and there in the [Microsoft Expressroute documentation](https://learn.microsoft.com/en-us/azure/expressroute/).
+> No breaking news here, just an illustrated recap of the the recommendations and attention points highlighted here and there in the [Microsoft Expressroute documentation](https://learn.microsoft.com/en-us/azure/expressroute/) as well as in this [video](https://www.youtube.com/watch?v=CuXOszhSWjc).
 
 - [Scope](#scope)
 - [1. ExpressRoute components](#1-expressroute-components)
@@ -36,7 +36,7 @@ The provider must ensure redundant connectivity to either the customer edge or t
 
 # 2. ExpressRoute models
 
-There are 4 [ExpressRoute connectivity models](https://learn.microsoft.com/en-us/azure/expressroute/expressroute-connectivity-models) between on-premises and Azure, divided in 2 approaches: 3 ExpressRoute *Service Provider* models and 1 ExpressRoute *Direct* model.
+There are 4 [ExpressRoute connectivity models](https://learn.microsoft.com/en-us/azure/expressroute/expressroute-connectivity-models) between on-premises and Azure, divided in 2 approaches: 3 ExpressRoute ***Service Provider*** models and 1 ExpressRoute ***Direct*** model.
 
 ## 2.1. ExpressRoute Service Provider models
 
@@ -68,15 +68,19 @@ ExpressRoute Direct is a dedicated physical connection to the Microsoft backbone
 
 # 3. What could go wrong?
 
-## 3.1. Service Provider failure
+## 3.1. ExpressRoute peering location failure
 
-To address Service Provider or ExpressRoute peering location failure, the solution is to built a resilient design as detailed in [this article](https://learn.microsoft.com/en-us/azure/expressroute/designing-for-disaster-recovery-with-expressroute-privatepeering) and illustrated below:
+To address ExpressRoute peering location failures, the recommended solution is to build a resilient design as outlined in [this article](https://learn.microsoft.com/en-us/azure/expressroute/designing-for-disaster-recovery-with-expressroute-privatepeering) and illustrated below:
 
 ![](images/er-circuit-resiliency.png)
 
-Redundancy is provided with 2 ExpressRoute circuits in 2 different ExpressRoute peering locations (geo-redundant ExpressRoute circuits), both connecting to the same Azure ExpressRoute Gateway.
+Resiliency is achieved by deploying 2 ExpressRoute circuits in 2 distinct ExpressRoute peering locations, thereby creating geo-redundant ExpressRoute circuits that are both connected to the same Azure ExpressRoute Gateway.
 
-This design introduces 2 parallel paths to Azure so careful network design to avoid unexpected asymmetric routing 
+Based on this principle, multiple Azure region environments provide the opportunity to leverage existing ExpressRoute circuits to achieve geo-redundancy through an ***ExpressRoute Bow-Tie*** design:
+
+![](images/er-bowtie.png)
+
+:warning: Because this design introduces 2 parallel paths to Azure, traffic engineering mechanisms must be carefully implemented to prevent unexpected asymmetric routing.
 
 ## 3.2. Prevent MSEE maintenance impact
 
