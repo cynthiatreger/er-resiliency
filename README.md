@@ -1,12 +1,11 @@
+No breaking news, just an illustrated recap of the the recommendations and attention points highlighted here and there in the [Microsoft Expressroute documentation](https://learn.microsoft.com/en-us/azure/expressroute/).
+
 # Understanding ExpressRoute to address ExpressRoute Resiliency
 
-This article focuses on [ExpressRoute](https://learn.microsoft.com/en-us/azure/expressroute/expressroute-introduction) Private Peering only, providing connectivity between On-Prem and VNets in Azure regions.
-
-No breaking news, just an illustrated recap of the the recommendations and attention points highlighted here and there in the [Microsoft Expressroute documentation](https://learn.microsoft.com/en-us/azure/expressroute/).
 
 # 1. ExpressRoute components, architectures and data flows
 
-ExpressRoute is used to connect an on-prem network and and an [Azure region](https://azure.microsoft.com/en-us/explore/global-infrastructure/geographies/#overview) in the Microssoft Cloud. ExpressRoute connectivity is provided in [ExpressRoute peering locations](https://learn.microsoft.com/en-us/azure/expressroute/expressroute-locations).
+This article focuses on [ExpressRoute](https://learn.microsoft.com/en-us/azure/expressroute/expressroute-introduction) Private Peering only, pused to connect an On-Prem network and VNets in an [Azure region](https://azure.microsoft.com/en-us/explore/global-infrastructure/geographies/#overview). ExpressRoute connectivity is provided in [ExpressRoute peering locations](https://learn.microsoft.com/en-us/azure/expressroute/expressroute-locations).
 
  ExpressRoute peering locations are entry points into the Microsoft backbone, Azure regions are where  the Azure resources are hosted: distinct concepts at different locations. 
  
@@ -81,6 +80,8 @@ Current constraints and limitations:
 - FastPath support for [UDRs](https://learn.microsoft.com/en-us/azure/expressroute/about-fastpath#user-defined-routes-udrs) on the Gateway subnet and for [VNet peering](https://learn.microsoft.com/en-us/azure/expressroute/about-fastpath#virtual-network-vnet-peering) is still in preview and available for ExpressDirect circuits only.
 
 ## 4. Prevent Service Provider Failure
+
+
 
 ## 5. Prevent MSEE maintenance impact
 
