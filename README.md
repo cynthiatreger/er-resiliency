@@ -100,7 +100,7 @@ ExpressRoute routes take precedence over other routes for the same prefixes.
 
 When different but overlapping prefixes are used, the route with the longest prefix is chosen.
 
-## 3.2. On-Prem configurations and events and MSEE maintenances
+## 3.2. On-Prem configurations/failures and MSEE maintenances
 
 During an ExpressRoute circuit maintenance, one link out of the 2 fibers connecting the MSEEs and provider equipments remains available. AS-prepending is used by Microsoft to force traffic over the remaining link. 
 
@@ -108,6 +108,6 @@ To prevent conflicts between Microsoft AS-prepending and On-Prem routing and to 
 
 ![](images/active-active.png)
 
-For reliable On-Prem connectivity it is also recommended to terminate the primary and the secondary links of an ExpressRoute circuit on 2 separate customer routers (orange highlight).
+To prevent a single point of failure, it also recommended to terminate the primary and the secondary links of an ExpressRoute circuit on 2 separate customer routers as highlighted in orange.
 
 ## 3.3. Prevent Availability Zone Failure
