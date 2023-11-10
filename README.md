@@ -61,13 +61,3 @@ ExpressRoute Direct is a dedicated physical connection to the Microsoft backbone
 ## 5. Prevent MSEE maintenance impact
 
 ## 6. Prevent Availability Zone Failure
-
-# Appendix: ExpressRoute data flow
-
-## by default
-
-
-
-
-
-
