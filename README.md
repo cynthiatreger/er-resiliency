@@ -1,6 +1,18 @@
 # Understanding ExpressRoute private peering to address ExpressRoute resiliency
 
-No breaking news here, just an illustrated recap of the the recommendations and attention points highlighted here and there in the [Microsoft Expressroute documentation](https://learn.microsoft.com/en-us/azure/expressroute/).
+> No breaking news here, just an illustrated recap of the the recommendations and attention points highlighted here and there in the [Microsoft Expressroute documentation](https://learn.microsoft.com/en-us/azure/expressroute/).
+
+- [Scope](#scope)
+- [1. ExpressRoute components](#1-expressroute-components)
+- [2. ExpressRoute models](#2-expressroute-models)
+  * [2.1. ExpressRoute Service Provider models](#21-expressroute-service-provider-models)
+    + [Cloud exchange colocation](#cloud-exchange-colocation)
+    + [Ethernet Point to Point](#ethernet-point-to-point)
+    + [Any-to-any connectivity](#any-to-any-connectivity)
+  * [2.2. ExpressRoute Direct model](#22-expressroute-direct-model)
+- [3. Prevent Service Provider Failure](#3-prevent-service-provider-failure)
+- [4. Prevent MSEE maintenance impact](#4-prevent-msee-maintenance-impact)
+- [5. Prevent Availability Zone Failure](#5-prevent-availability-zone-failure)
 
 # Scope
 
@@ -54,10 +66,10 @@ ExpressRoute Direct is a dedicated physical connection to the Microsoft backbone
 
 ![](images/erd.png)
 
-## 4. Prevent Service Provider Failure
+# 3. Prevent Service Provider Failure
 
 
 
-## 5. Prevent MSEE maintenance impact
+# 4. Prevent MSEE maintenance impact
 
-## 6. Prevent Availability Zone Failure
+# 5. Prevent Availability Zone Failure
