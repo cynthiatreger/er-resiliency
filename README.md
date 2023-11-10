@@ -66,10 +66,18 @@ ExpressRoute Direct is a dedicated physical connection to the Microsoft backbone
 
 ![](images/erd.png)
 
-# 3. Prevent Service Provider Failure
+# 3. What could go wrong?
 
+## 3.1. Service Provider failure
 
+To address Service Provider or ExpressRoute peering location failure, the solution is to built a resilient design as detailed in [this article](https://learn.microsoft.com/en-us/azure/expressroute/designing-for-disaster-recovery-with-expressroute-privatepeering) and illustrated below:
 
-# 4. Prevent MSEE maintenance impact
+![](images/er-circuit-resiliency.png)
 
-# 5. Prevent Availability Zone Failure
+Redundancy is provided with 2 ExpressRoute circuits in 2 different ExpressRoute peering locations (geo-redundant ExpressRoute circuits), both connecting to the same Azure ExpressRoute Gateway.
+
+This design introduces 2 parallel paths to Azure so careful network design to avoid unexpected asymmetric routing 
+
+## 3.2. Prevent MSEE maintenance impact
+
+## 3.3. Prevent Availability Zone Failure
