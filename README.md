@@ -28,7 +28,7 @@ This article focuses on [ExpressRoute](https://learn.microsoft.com/en-us/azure/e
 
 | **Components** | **Connectivity** | **Location** |
 |---|---|---|
-|ExpressRoute Circuit|Dual physical fiber connectivity between the MSEEs and the provider|Expressroute peering location|
+|ExpressRoute Circuit|Dual physical fiber connectivity between the MSEEs and the provider equipments|Expressroute peering location|
 |ExpressRoute Gateway|Min 2 instances connected to both MSEEs| Azure region|
 |ExpressRoute Connection|Virtual connection between the MSEE and the ExpressRoute Gateway|ExpressRoute location to Azure region
 
@@ -62,13 +62,17 @@ In this scenario, ExpressRoute is associated with a **customer VRF** within the 
 
 ## 2.2. ExpressRoute Direct model
 
-ExpressRoute Direct is a dedicated physical connection to the Microsoft backbone, established between a pair of MSEEs and customer routers, without any intermediate connecitivity provider. The customer is allocated an entire MSEE port (10Gbps and 100Gbps) allowing the creation of multiple circuits on it.
+[ExpressRoute Direct](https://learn.microsoft.com/en-us/azure/expressroute/expressroute-erdirect-about) is a dedicated physical connection to the Microsoft backbone, established between a pair of MSEEs and customer routers, without any intermediate connecitivity provider. The customer is allocated an entire MSEE port (10Gbps and 100Gbps) allowing the creation of multiple circuits on it.
 
 ![](images/erd.png)
+
+Adam's [video](https://youtu.be/Yk5bFWhdVJg?si=tjix2A-ity2sLmjp) is another valuable resource for learning about ExpressRoute Direct.
 
 # 3. What could go wrong?
 
 ## 3.1. ExpressRoute peering location failure
+
+### Solution #1: geo-redundant ExpressRoute circuits
 
 To address ExpressRoute peering location failures, the recommended solution is to build a resilient design as outlined in [this article](https://learn.microsoft.com/en-us/azure/expressroute/designing-for-disaster-recovery-with-expressroute-privatepeering) and illustrated below:
 
@@ -82,6 +86,28 @@ Based on this principle, multiple Azure region environments provide the opportun
 
 :warning: Because this design introduces 2 parallel paths to Azure, traffic engineering mechanisms must be carefully implemented to prevent unexpected asymmetric routing.
 
-## 3.2. Prevent MSEE maintenance impact
+### Solution #2: S2S VPN backup
+
+ExpressRoute and VPN can also be combined in an active-passive configuration to provide disaster recovery capabilities. 
+
+![](images/s2svpn-backup.png)
+
+Both a VPN Gateway and an ExpressRoute Gateway can exist in the same GatewaySubnet.
+
+Transit routing between the ExpressRoute Gateway and the VPN Gateway is not possible without the use of ARS or vWAN.
+
+ExpressRoute routes take precedence over other routes for the same prefixes.
+
+When different but overlapping prefixes are used, the route with the longest prefix is chosen.
+
+## 3.2. On-Prem configurations and events and MSEE maintenances
+
+During an ExpressRoute circuit maintenance, one link out of the 2 fibers connecting the MSEEs and provider equipments remains available. AS-prepending is used by Microsoft to force traffic over the remaining link. 
+
+To prevent conflicts between Microsoft AS-prepending and On-Prem routing and to maintain On-Prem network resiliency, it is important to plan for this scenario and operate both links of an ER circuit (highlighted in yellow) as [Active/Active](https://learn.microsoft.com/en-us/azure/expressroute/designing-for-high-availability-with-expressroute#active-active-connections) when in nominal mode.
+
+![](images/active-active.png)
+
+For reliable On-Prem connectivity it is also recommended to terminate the primary and the secondary links of an ExpressRoute circuit on 2 separate customer routers (orange highlight).
 
 ## 3.3. Prevent Availability Zone Failure
