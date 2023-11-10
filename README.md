@@ -30,7 +30,7 @@ This article focuses on [ExpressRoute](https://learn.microsoft.com/en-us/azure/e
 |---|---|---|
 |ExpressRoute Circuit|Dual physical fiber connectivity between the MSEEs and the provider equipments|Expressroute peering location|
 |ExpressRoute Gateway|Min 2 instances connected to both MSEEs| Azure region|
-|ExpressRoute Connection|Virtual connection between the MSEE and the ExpressRoute Gateway|ExpressRoute location to Azure region
+|ExpressRoute Connection|Virtual connection between the MSEE and the ExpressRoute Gateway|ExpressRoute location to Azure region|
 
 The provider must ensure redundant connectivity to either the customer edge or their MPLS edge.
 
@@ -86,13 +86,17 @@ Based on this principle, multiple Azure region environments provide the opportun
 
 :warning: Because this design introduces 2 parallel paths to Azure, traffic engineering mechanisms must be carefully implemented to prevent unexpected asymmetric routing.
 
+To create an optimal geo-redundant ExpressRoute circuit design, it's important to understand that the ExpressRoute Circuit SKU determines that an ExpressRoute circuit can connect to. Each SKU hhas a specific scope of supported regions:
+
+![](images/er-circuit-skus.png)
+
 ### Solution #2: S2S VPN backup
 
 ExpressRoute and VPN can also be combined in an active-passive configuration to provide disaster recovery capabilities. 
 
 ![](images/s2svpn-backup.png)
 
-Both a VPN Gateway and an ExpressRoute Gateway can exist in the same GatewaySubnet.
+Both a VPN Gateway and an ExpressRoute Gateway can exist in the same GatewaySubnet (que fait la poliiiice?)
 
 Transit routing between the ExpressRoute Gateway and the VPN Gateway is not possible without the use of ARS or vWAN.
 
@@ -110,4 +114,18 @@ To prevent conflicts between Microsoft AS-prepending and On-Prem routing and to 
 
 To prevent a single point of failure, it also recommended to terminate the primary and the secondary links of an ExpressRoute circuit on 2 separate customer routers as highlighted in orange.
 
-## 3.3. Prevent Availability Zone Failure
+## 3.3. Availability Zone Failure
+
+The ExpressRoute Gateway instances in Azure connect VNets and MSEE routers by handling BGP route exchanges between them.
+
+Therefore, to ensure end-to-end ExpressRoute resiliency, it is important to consider the resiliency of the ExpressRoute Gateway. Best practices recommend using [AZ redundant ExpressRoute Gateway SKUs](https://learn.microsoft.com/en-us/azure/expressroute/expressroute-about-virtual-network-gateways#zrgw) for this purpose.
+
+Regular SKUs vers AZ-redundant SKUs:
+
+| **Regular ERGW SKUs** | **Zone-redundant ERGW SKUs** |
+|---|---|
+|VMs in an availability set: vulnerable if a single zone or the cluster in the datacenter fails|VMs in availability zones: **protected from partial datacenter failure** but don’t protect from regional level failures|
+|Basic (deprecated) --> 500 Mbps throughput between VNet and MSEE | |
+|Standard --> 1 Gbps throughput|**ErGW1AZ** – 1 Gbps throughput|
+|High Performance --> 2 Gbps throughput|**ErGW2AZ** –-> 2 Gbps throughput|
+|Ultra Performance --> 10 Gbps throughput|**ErGW3AZ** –-> 10 Gbps throughput|
