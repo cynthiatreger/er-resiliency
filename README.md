@@ -14,8 +14,9 @@ This article is co-authored by Microsoft colleague [David Santiago](https://gith
   * [3.1. ExpressRoute peering location failure](#31-expressroute-peering-location-failure)
     + [Solution #1: geo-redundant ExpressRoute circuits](#solution--1--geo-redundant-expressroute-circuits)
     + [Solution #2: S2S VPN backup](#solution--2--s2s-vpn-backup)
-  * [3.2. On-Prem configurations/failures and MSEE maintenances](#32-on-prem-configurations-failures-and-msee-maintenances)
+  * [3.2. On-Prem misconfigurations/failures and MSEE maintenances](#32-on-prem-misconfigurations-failures-and-msee-maintenances)
   * [3.3. Availability Zone Failure](#33-availability-zone-failure)
+  * [3.4. Max advertised prefix limit exceeded](#34-max-advertised-prefix-limit-exceeded)
 
 # Scope
 
@@ -143,6 +144,6 @@ AZ-redundant ExpressRoute Gateway instances are split across different Availabil
 
 ![](images/az-redundant-ergw.png)
 
-## 3.4. hitting the max advertised route limits
+## 3.4. Max advertised prefix limit exceeded
 
 ![](images/route-advertisement-limits.png)
