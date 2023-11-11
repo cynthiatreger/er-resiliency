@@ -142,3 +142,7 @@ Regular SKUs vers AZ-redundant SKUs:
 AZ-redundant ExpressRoute Gateway instances are split across different Availability Zones:
 
 ![](images/az-redundant-ergw.png)
+
+## 3.4. hitting the max advertised route limits
+
+![](images/route-advertisement-limits.png)
