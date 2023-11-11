@@ -1,7 +1,5 @@
 # Understanding ExpressRoute private peering to address ExpressRoute resiliency
 
-> No breaking news here, just an illustrated recap of the the recommendations and attention points highlighted here and there in the [Microsoft Expressroute documentation](https://learn.microsoft.com/en-us/azure/expressroute/) as well as in this [video](https://www.youtube.com/watch?v=CuXOszhSWjc).
-
 - [Scope](#scope)
 - [1. ExpressRoute components](#1-expressroute-components)
 - [2. ExpressRoute models](#2-expressroute-models)
@@ -10,11 +8,16 @@
     + [Ethernet Point to Point](#ethernet-point-to-point)
     + [Any-to-any connectivity](#any-to-any-connectivity)
   * [2.2. ExpressRoute Direct model](#22-expressroute-direct-model)
-- [3. Prevent Service Provider Failure](#3-prevent-service-provider-failure)
-- [4. Prevent MSEE maintenance impact](#4-prevent-msee-maintenance-impact)
-- [5. Prevent Availability Zone Failure](#5-prevent-availability-zone-failure)
+- [3. What could go wrong?](#3-what-could-go-wrong-)
+  * [3.1. ExpressRoute peering location failure](#31-expressroute-peering-location-failure)
+    + [Solution #1: geo-redundant ExpressRoute circuits](#solution--1--geo-redundant-expressroute-circuits)
+    + [Solution #2: S2S VPN backup](#solution--2--s2s-vpn-backup)
+  * [3.2. On-Prem configurations/failures and MSEE maintenances](#32-on-prem-configurations-failures-and-msee-maintenances)
+  * [3.3. Availability Zone Failure](#33-availability-zone-failure)
 
 # Scope
+
+> No breaking news here, just an illustrated recap of the the recommendations and attention points highlighted here and there in the [Microsoft Expressroute documentation](https://learn.microsoft.com/en-us/azure/expressroute/) as well as in this [video](https://www.youtube.com/watch?v=CuXOszhSWjc).
 
 This article focuses on [ExpressRoute](https://learn.microsoft.com/en-us/azure/expressroute/expressroute-introduction) Private Peering only, used to connect an On-Prem network and VNets in an [Azure region](https://azure.microsoft.com/en-us/explore/global-infrastructure/geographies/#overview). ExpressRoute connectivity is provided in [ExpressRoute peering locations](https://learn.microsoft.com/en-us/azure/expressroute/expressroute-locations).
 
@@ -80,25 +83,25 @@ To address ExpressRoute peering location failures, the recommended solution is t
 
 Resiliency is achieved by deploying 2 ExpressRoute circuits in 2 distinct ExpressRoute peering locations, thereby creating geo-redundant ExpressRoute circuits that are both connected to the same Azure ExpressRoute Gateway.
 
-Based on this principle, multiple Azure region environments provide the opportunity to leverage existing ExpressRoute circuits to achieve geo-redundancy through an ***ExpressRoute Bow-Tie*** design:
+Based on this principle, envrionments with multiple Azure regions provide the opportunity to leverage existing ExpressRoute circuits to achieve geo-redundancy through an ***ExpressRoute Bow-Tie*** design:
 
 ![](images/er-bowtie.png)
 
-:warning: Because this design introduces 2 parallel paths to Azure, traffic engineering mechanisms must be carefully implemented to prevent unexpected asymmetric routing.
+> Because these designs introduce 2 parallel paths to Azure, traffic engineering mechanisms must be carefully implemented to prevent unexpected asymmetric routing.
 
-To create an optimal geo-redundant ExpressRoute circuit design, it's important to understand that the ExpressRoute Circuit SKU determines that an ExpressRoute circuit can connect to. Each SKU hhas a specific scope of supported regions:
+To create an optimal geo-redundant ExpressRoute Circuit design, it is important to understand that the ExpressRoute Circuit SKU determines where an ExpressRoute circuit can connect to. Each SKU has a specific scope of supported regions (same metro/same geo/cross-geo):
 
 ![](images/er-circuit-skus.png)
 
 ### Solution #2: S2S VPN backup
 
-ExpressRoute and VPN can also be combined in an active-passive configuration to provide disaster recovery capabilities. 
+ExpressRoute and VPN can also be combined in an Active-Passive configuration to provide disaster recovery capabilities. 
 
 ![](images/s2svpn-backup.png)
 
-Both a VPN Gateway and an ExpressRoute Gateway can exist in the same GatewaySubnet (que fait la poliiiice?)
+Both a VPN Gateway and an ExpressRoute Gateway can exist in the same GatewaySubnet. (que fait la poliiiice?)
 
-Transit routing between the ExpressRoute Gateway and the VPN Gateway is not possible without the use of ARS or vWAN.
+Transit routing between the ExpressRoute Gateway and the VPN Gateway is not possible without the use of [ARS](https://learn.microsoft.com/en-us/azure/route-server/overview) or [virtual WAN](https://learn.microsoft.com/en-us/azure/virtual-wan/virtual-wan-about).
 
 ExpressRoute routes take precedence over other routes for the same prefixes.
 
@@ -118,7 +121,7 @@ To prevent a single point of failure, it also recommended to terminate the prima
 
 The ExpressRoute Gateway instances in Azure connect VNets and MSEE routers by handling BGP route exchanges between them.
 
-Therefore, to ensure end-to-end ExpressRoute resiliency, it is important to consider the resiliency of the ExpressRoute Gateway. Best practices recommend using [AZ redundant ExpressRoute Gateway SKUs](https://learn.microsoft.com/en-us/azure/expressroute/expressroute-about-virtual-network-gateways#zrgw) for this purpose.
+Therefore, the resiliency of the ExpressRoute Gateway is mandatory to ensure end-to-end ExpressRoute resiliency. Best practices recommend using [AZ redundant ExpressRoute Gateway SKUs](https://learn.microsoft.com/en-us/azure/expressroute/expressroute-about-virtual-network-gateways#zrgw) for this purpose.
 
 Regular SKUs vers AZ-redundant SKUs:
 
