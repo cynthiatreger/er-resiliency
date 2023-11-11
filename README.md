@@ -20,11 +20,11 @@ This article is co-authored by Microsoft colleague [David Santiago](https://gith
 
 # Scope
 
-> No breaking news here, just an illustrated recap of the recommendations and attention points highlighted here and there in the [Microsoft Expressroute documentation](https://learn.microsoft.com/en-us/azure/expressroute/) and applicable both in hub-and-spoke and virtual WAN. 
+> No breaking news here, just an illustrated recap of the recommendations and attention points highlighted here and there in the [Microsoft Expressroute documentation](https://learn.microsoft.com/en-us/azure/expressroute/). 
 
-This article focuses on [ExpressRoute](https://learn.microsoft.com/en-us/azure/expressroute/expressroute-introduction) Private Peering only, used to connect an On-Prem network and VNets in an [Azure region](https://azure.microsoft.com/en-us/explore/global-infrastructure/geographies/#overview).
+This article focuses on [ExpressRoute](https://learn.microsoft.com/en-us/azure/expressroute/expressroute-introduction) Private Peering only, to connect an On-Prem network and VNets in an Azure hub-and-spoke or virtual WAN environment.
 
-ExpressRoute connectivity is provided in [ExpressRoute peering locations](https://learn.microsoft.com/en-us/azure/expressroute/expressroute-locations). ExpressRoute peering locations are entry points into the Microsoft backbone, Azure regions are where the Azure resources are hosted: distinct concepts at different locations. 
+ExpressRoute connectivity is provided in [ExpressRoute peering locations](https://learn.microsoft.com/en-us/azure/expressroute/expressroute-locations). ExpressRoute peering locations are entry points into the Microsoft backbone, [Azure regions](https://azure.microsoft.com/en-us/explore/global-infrastructure/geographies/#overview) are where the Azure resources are hosted: distinct concepts at different locations. 
  
 # 1. ExpressRoute components
 
