@@ -35,7 +35,7 @@ This article focuses on [ExpressRoute](https://learn.microsoft.com/en-us/azure/e
 |ExpressRoute Gateway|Min 2 instances connected to both MSEEs| Azure region|
 |ExpressRoute Connection|Virtual connection between the MSEE and the ExpressRoute Gateway|ExpressRoute location to Azure region|
 
-The provider must ensure redundant connectivity to either the customer edge or their MPLS edge.
+The provider must ensure redundant connectivity to either the customer edge routers or their MPLS edge routers.
 
 # 2. ExpressRoute models
 
@@ -107,7 +107,7 @@ ExpressRoute routes take precedence over other routes for the same prefixes.
 
 When different but overlapping prefixes are used, the route with the longest prefix is chosen.
 
-## 3.2. On-Prem configurations/failures and MSEE maintenances
+## 3.2. On-Prem misconfigurations/failures and MSEE maintenances
 
 During an ExpressRoute circuit maintenance, one link out of the 2 fibers connecting the MSEEs and provider equipments remains available. AS-prepending is used by Microsoft to force traffic over the remaining link. 
 
