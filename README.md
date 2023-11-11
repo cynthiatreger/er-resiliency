@@ -127,7 +127,7 @@ The graph below displays the average usage in bits/sec for the 2 links of an Exp
 
 The ExpressRoute Gateway instances in Azure connect VNets and MSEE routers by handling BGP route exchanges between them.
 
-Therefore, the resiliency of the ExpressRoute Gateway is mandatory to ensure end-to-end ExpressRoute resiliency. Best practices recommend using [AZ redundant ExpressRoute Gateway SKUs](https://learn.microsoft.com/en-us/azure/expressroute/expressroute-about-virtual-network-gateways#zrgw) for this purpose.
+Therefore, the resiliency of the ExpressRoute Gateway is mandatory to ensure end-to-end ExpressRoute resiliency. Best practices recommend using [AZ-redundant ExpressRoute Gateway SKUs](https://learn.microsoft.com/en-us/azure/expressroute/expressroute-about-virtual-network-gateways#zrgw) for this purpose.
 
 Regular SKUs vers AZ-redundant SKUs:
 
@@ -138,3 +138,7 @@ Regular SKUs vers AZ-redundant SKUs:
 |Standard --> 1 Gbps throughput|**ErGW1AZ** – 1 Gbps throughput|
 |High Performance --> 2 Gbps throughput|**ErGW2AZ** –-> 2 Gbps throughput|
 |Ultra Performance --> 10 Gbps throughput|**ErGW3AZ** –-> 10 Gbps throughput|
+
+AZ-redundant ExpressRoute Gateway instances are split across different Availability Zones:
+
+![](images/az-redundant-ergw.png)
