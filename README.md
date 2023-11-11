@@ -1,5 +1,7 @@
 # Understanding ExpressRoute private peering to address ExpressRoute resiliency
 
+This article is co-authored by Microsoft colleague [David Santiago](https://github.com/dawlysd).
+
 - [Scope](#scope)
 - [1. ExpressRoute components](#1-expressroute-components)
 - [2. ExpressRoute models](#2-expressroute-models)
@@ -115,7 +117,11 @@ To prevent conflicts between Microsoft AS-prepending and On-Prem routing and to 
 
 ![](images/active-active.png)
 
-To prevent a single point of failure, it also recommended to terminate the primary and the secondary links of an ExpressRoute circuit on 2 separate customer routers as highlighted in orange.
+The graph below displays the average usage in bits/sec for the 2 links of an ExpressRoute circuit configured in active/passive by the customer:
+
+![](images/active-passive-circuit.png)
+
+>To prevent a single point of failure, it also recommended to terminate the primary and the secondary links of an ExpressRoute circuit on 2 separate customer routers as highlighted in orange on the above diagram.
 
 ## 3.3. Availability Zone Failure
 
