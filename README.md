@@ -19,11 +19,11 @@ This article is co-authored by Microsoft colleague [David Santiago](https://gith
 
 # Scope
 
-> No breaking news here, just an illustrated recap of the the recommendations and attention points highlighted here and there in the [Microsoft Expressroute documentation](https://learn.microsoft.com/en-us/azure/expressroute/) as well as in this [video](https://www.youtube.com/watch?v=CuXOszhSWjc).
+> No breaking news here, just an illustrated recap of the recommendations and attention points highlighted here and there in the [Microsoft Expressroute documentation](https://learn.microsoft.com/en-us/azure/expressroute/) as well as in this [video](https://www.youtube.com/watch?v=CuXOszhSWjc).
 
 This article focuses on [ExpressRoute](https://learn.microsoft.com/en-us/azure/expressroute/expressroute-introduction) Private Peering only, used to connect an On-Prem network and VNets in an [Azure region](https://azure.microsoft.com/en-us/explore/global-infrastructure/geographies/#overview). ExpressRoute connectivity is provided in [ExpressRoute peering locations](https://learn.microsoft.com/en-us/azure/expressroute/expressroute-locations).
 
- ExpressRoute peering locations are entry points into the Microsoft backbone, Azure regions are where  the Azure resources are hosted: distinct concepts at different locations. 
+ ExpressRoute peering locations are entry points into the Microsoft backbone, Azure regions are where the Azure resources are hosted: distinct concepts at different locations. 
  
 # 1. ExpressRoute components
 
@@ -41,7 +41,7 @@ The provider must ensure redundant connectivity to either the customer edge rout
 
 # 2. ExpressRoute models
 
-There are 4 [ExpressRoute connectivity models](https://learn.microsoft.com/en-us/azure/expressroute/expressroute-connectivity-models) between on-premises and Azure, divided in 2 approaches: 3 ExpressRoute ***Service Provider*** models and 1 ExpressRoute ***Direct*** model.
+There are 4 [ExpressRoute connectivity models](https://learn.microsoft.com/en-us/azure/expressroute/expressroute-connectivity-models) between On-Prem and Azure, divided in 2 approaches: 3 ExpressRoute ***Service Provider*** models and 1 ExpressRoute ***Direct*** model.
 
 ## 2.1. ExpressRoute Service Provider models
 
@@ -49,7 +49,7 @@ In these models, ExpressRoute connectivity is provided to customers through [ser
 
 ### Cloud exchange colocation
 
-The customer edge routers are located **in a cloud exchange facility** near or at the peering location and are cross-connected with an ExpressRoute connectivity provider using either L2 or L3.
+The customer edge routers are located **in a cloud exchange facility** near to or at the peering location and are cross-connected with an ExpressRoute connectivity provider using either L2 or L3.
 
 ![](images/cloud-exch-colo.png)
 
@@ -67,7 +67,7 @@ In this scenario, ExpressRoute is associated with a **customer VRF** within the 
 
 ## 2.2. ExpressRoute Direct model
 
-[ExpressRoute Direct](https://learn.microsoft.com/en-us/azure/expressroute/expressroute-erdirect-about) is a dedicated physical connection to the Microsoft backbone, established between a pair of MSEEs and customer routers, without any intermediate connecitivity provider. The customer is allocated an entire MSEE port (10Gbps and 100Gbps) allowing the creation of multiple circuits on it.
+[ExpressRoute Direct](https://learn.microsoft.com/en-us/azure/expressroute/expressroute-erdirect-about) is a dedicated physical connection to the Microsoft backbone, established between a pair of MSEEs and customer routers, without any intermediate connectivity provider. The customer is allocated an entire MSEE port (10 Gbps or 100 Gbps) allowing the creation of multiple circuits on it.
 
 ![](images/erd.png)
 
@@ -85,7 +85,7 @@ To address ExpressRoute peering location failures, the recommended solution is t
 
 Resiliency is achieved by deploying 2 ExpressRoute circuits in 2 distinct ExpressRoute peering locations, thereby creating geo-redundant ExpressRoute circuits that are both connected to the same Azure ExpressRoute Gateway.
 
-Based on this principle, envrionments with multiple Azure regions provide the opportunity to leverage existing ExpressRoute circuits to achieve geo-redundancy through an ***ExpressRoute Bow-Tie*** design:
+Based on this principle, environments with multiple Azure regions provide the opportunity to leverage existing ExpressRoute circuits to achieve geo-redundancy through an ***ExpressRoute Bow-Tie*** design:
 
 ![](images/er-bowtie.png)
 
@@ -117,7 +117,7 @@ To prevent conflicts between Microsoft AS-prepending and On-Prem routing and to 
 
 ![](images/active-active.png)
 
-The graph below displays the average usage in bits/sec for the 2 links of an ExpressRoute circuit configured in active/passive by the customer:
+The graph below displays the average usage in bits/sec for the 2 links of an ExpressRoute circuit configured in Active-Passive by the customer:
 
 ![](images/active-passive-circuit.png)
 
