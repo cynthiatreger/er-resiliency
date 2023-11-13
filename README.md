@@ -34,7 +34,7 @@ ExpressRoute connectivity is provided in [ExpressRoute peering locations](https:
 
 | **Components** | **Connectivity** | **Location** |
 |---|---|---|
-|ExpressRoute Circuit|Dual physical fiber connectivity between the MSEEs and the provider equipments|Expressroute peering location|
+|ExpressRoute Circuit|**Dual** physical fiber connectivity between the MSEEs and the provider equipments|Expressroute peering location|
 |ExpressRoute Gateway|Min 2 instances connected to both MSEEs| Azure region|
 |ExpressRoute Connection|Virtual connection between the MSEE and the ExpressRoute Gateway|ExpressRoute location to Azure region|
 
@@ -72,7 +72,7 @@ In this scenario, ExpressRoute is associated with a **customer VRF** within the 
 
 ![](images/erd.png)
 
-Adam's [video](https://youtu.be/Yk5bFWhdVJg?si=tjix2A-ity2sLmjp) is another valuable resource for learning about ExpressRoute Direct.
+Adam Stuart's [video](https://youtu.be/Yk5bFWhdVJg?si=tjix2A-ity2sLmjp) is another valuable resource for learning about ExpressRoute Direct.
 
 # 3. What could go wrong?
 
@@ -84,9 +84,9 @@ To address ExpressRoute peering location failures, the recommended solution is t
 
 ![](images/er-circuit-resiliency.png)
 
-Resiliency is achieved by deploying 2 ExpressRoute circuits in 2 distinct ExpressRoute peering locations, thereby creating geo-redundant ExpressRoute circuits that are both connected to the same Azure ExpressRoute Gateway.
+Resiliency is achieved by deploying 2 ExpressRoute Circuits in 2 distinct ExpressRoute peering locations, thereby creating geo-redundant ExpressRoute circuits that are both connected to the same Azure ExpressRoute Gateway.
 
-Based on this principle, environments with multiple Azure regions provide the opportunity to leverage existing ExpressRoute circuits to achieve geo-redundancy through an ***ExpressRoute Bow-Tie*** design:
+Based on this principle, environments with multiple Azure regions provide the opportunity to leverage existing ExpressRoute Circuits to achieve geo-redundancy through an ***ExpressRoute Bow-Tie*** design:
 
 ![](images/er-bowtie.png)
 
@@ -96,7 +96,7 @@ To create an optimal geo-redundant ExpressRoute Circuit design, it is important 
 
 ![](images/er-circuit-skus.png)
 
-See [this great repo](https://github.com/Danieleg82/Exr-Bowtie) to learn more about the the benefits of Expressroute bow-tie designs.
+See [this great repo](https://github.com/Danieleg82/Exr-Bowtie) from Daniele Gaiulli to learn more about the the benefits of Expressroute bow-tie designs.
 
 ### Solution #2: S2S VPN backup
 
@@ -111,7 +111,7 @@ ExpressRoute and VPN can also be combined in an Active-Passive configuration to 
 
 ## 3.2. On-Prem misconfigurations/failures and MSEE maintenances
 
-During an ExpressRoute circuit maintenance, one link out of the 2 fibers connecting the MSEEs and provider equipments remains available. AS-prepending is used by Microsoft to force traffic over the remaining link. 
+During an ExpressRoute Circuit maintenance, one link out of the 2 fibers connecting the MSEEs and provider equipments remains available. AS-prepending is used by Microsoft to force traffic over the remaining link. 
 
 To prevent conflicts between Microsoft AS-prepending and On-Prem routing and to maintain On-Prem network resiliency, it is important to plan for this scenario and operate both links of an ER circuit (highlighted in yellow) as [Active/Active](https://learn.microsoft.com/en-us/azure/expressroute/designing-for-high-availability-with-expressroute#active-active-connections) when in nominal mode. 
 
