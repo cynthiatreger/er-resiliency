@@ -22,7 +22,7 @@ This article is co-authored by Microsoft colleague [David Santiago](https://gith
 
 > No breaking news here, just an illustrated recap of the recommendations and attention points highlighted here and there in the [Microsoft Expressroute documentation](https://learn.microsoft.com/en-us/azure/expressroute/). 
 
-This article focuses on [ExpressRoute](https://learn.microsoft.com/en-us/azure/expressroute/expressroute-introduction) Private Peering only, to connect an On-Prem network and VNets in an Azure hub-and-spoke or virtual WAN environment.
+This article focuses on [ExpressRoute](https://learn.microsoft.com/en-us/azure/expressroute/expressroute-introduction) Private Peering only, to connect an On-Prem network and VNets in an Azure hub-and-spoke or Virtual WAN environment.
 
 ExpressRoute connectivity is provided in [ExpressRoute peering locations](https://learn.microsoft.com/en-us/azure/expressroute/expressroute-locations). ExpressRoute peering locations are entry points into the Microsoft backbone, [Azure regions](https://azure.microsoft.com/en-us/explore/global-infrastructure/geographies/#overview) are where the Azure resources are hosted: distinct concepts at different locations. 
  
@@ -98,17 +98,14 @@ To create an optimal geo-redundant ExpressRoute Circuit design, it is important 
 
 ### Solution #2: S2S VPN backup
 
-ExpressRoute and VPN can also be combined in an Active-Passive configuration to provide disaster recovery capabilities. 
+ExpressRoute and VPN can also be combined in an Active-Passive configuration to provide disaster recovery capabilities ([doc](https://learn.microsoft.com/en-us/azure/expressroute/use-s2s-vpn-as-backup-for-expressroute-privatepeering)).
 
 ![](images/s2svpn-backup.png)
 
-Both a VPN Gateway and an ExpressRoute Gateway can exist in the same GatewaySubnet. (que fait la poliiiice?)
-
-Transit routing between the ExpressRoute Gateway and the VPN Gateway is not possible without the use of [ARS](https://learn.microsoft.com/en-us/azure/route-server/overview) or [virtual WAN](https://learn.microsoft.com/en-us/azure/virtual-wan/virtual-wan-about).
-
-ExpressRoute routes take precedence over other routes for the same prefixes.
-
-When different but overlapping prefixes are used, the route with the longest prefix is chosen.
+* Both a VPN Gateway and an ExpressRoute Gateway can exist in the same `GatewaySubnet`. 
+* Transit routing between the ExpressRoute Gateway and the VPN Gateway is not possible without the use of [ARS](https://learn.microsoft.com/en-us/azure/route-server/overview) or [Virtual WAN](https://learn.microsoft.com/en-us/azure/virtual-wan/virtual-wan-about).
+* ExpressRoute routes take precedence over other routes for the same prefixes.
+* When different but overlapping prefixes are used, the route with the longest prefix is chosen.
 
 ## 3.2. On-Prem misconfigurations/failures and MSEE maintenances
 
@@ -143,4 +140,8 @@ AZ-redundant ExpressRoute Gateway instances are distributed across different Ava
 
 ## 3.4. Max advertised prefix limit exceeded
 
+As per [Route Advertisement limits documentation](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/azure-subscription-service-limits#route-advertisement-limits), it is important to note that the number of routes advertised from Azure to On-Prem **is not the same** as from On-Prem to Azure.
+
 ![](images/route-advertisement-limits.png)
+
+ It is essential to consider the ExpressRoute Circuit SKU and the specific route advertisement limit it offers while planning your network architecture.
