@@ -118,31 +118,26 @@ To prevent conflicts between Microsoft AS-prepending and On-Prem routing and to 
 
 ![](images/active-active.png)
 
-More details in this video.
+To prevent a single point of failure, it also recommended to terminate the primary and the secondary links of an ExpressRoute circuit on 2 separate customer routers as highlighted in orange on the above diagram.
 
-The graph below displays the average usage in bits/sec for the 2 links of an ExpressRoute circuit configured in Active-Passive by the customer:
-
-![](images/active-passive-circuit.png)
-
->To prevent a single point of failure, it also recommended to terminate the primary and the secondary links of an ExpressRoute circuit on 2 separate customer routers as highlighted in orange on the above diagram.
+More details in [this video](https://www.youtube.com/watch?v=CuXOszhSWjc).
 
 ## 3.3. Availability Zone Failure
 
 The ExpressRoute Gateway instances in Azure connect VNets and MSEE routers by handling BGP route exchanges between them.
 
-Therefore, the resiliency of the ExpressRoute Gateway is mandatory to ensure end-to-end ExpressRoute resiliency. Best practices recommend using [AZ-redundant ExpressRoute Gateway SKUs](https://learn.microsoft.com/en-us/azure/expressroute/expressroute-about-virtual-network-gateways#zrgw) for this purpose.
+Therefore, the resiliency of the ExpressRoute Gateway is crucial to ensure end-to-end ExpressRoute resiliency.  It is best practice to use [AZ-redundant ExpressRoute Gateway SKUs](https://learn.microsoft.com/en-us/azure/expressroute/expressroute-about-virtual-network-gateways#zrgw) for this purpose. 
 
-Regular SKUs vers AZ-redundant SKUs:
+Comparison table:
 
 | **Regular ERGW SKUs** | **Zone-redundant ERGW SKUs** |
 |---|---|
-|VMs in an availability set: vulnerable if a single zone or the cluster in the datacenter fails|VMs in availability zones: **protected from partial datacenter failure** but don’t protect from regional level failures|
-|Basic (deprecated) --> 500 Mbps throughput between VNet and MSEE | |
-|Standard --> 1 Gbps throughput|**ErGW1AZ** – 1 Gbps throughput|
-|High Performance --> 2 Gbps throughput|**ErGW2AZ** –-> 2 Gbps throughput|
-|Ultra Performance --> 10 Gbps throughput|**ErGW3AZ** –-> 10 Gbps throughput|
+|Basic (deprecated): 500 Mbps throughput between VNet and MSEE | |
+|Standard: 1 Gbps throughput|**ErGW1AZ**: 1 Gbps throughput|
+|High Performance: 2 Gbps throughput|**ErGW2AZ**: 2 Gbps throughput|
+|Ultra Performance: 10 Gbps throughput|**ErGW3AZ**: 10 Gbps throughput|
 
-AZ-redundant ExpressRoute Gateway instances are split across different Availability Zones:
+AZ-redundant ExpressRoute Gateway instances are distributed across different Availability Zones:
 
 ![](images/az-redundant-ergw.png)
 
