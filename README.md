@@ -90,11 +90,13 @@ Based on this principle, environments with multiple Azure regions provide the op
 
 ![](images/er-bowtie.png)
 
-> Because these designs introduce 2 parallel paths to Azure, traffic engineering mechanisms must be carefully implemented to prevent unexpected asymmetric routing. See [this great repo](https://github.com/Danieleg82/Exr-Bowtie) to learn more about the the benefits of Expressroute bow-tie designs.
+> Because these designs introduce 2 parallel paths to Azure, traffic engineering mechanisms must be carefully implemented to prevent unexpected asymmetric routing. 
 
-Finally, to create an optimal geo-redundant ExpressRoute Circuit design, it is important to understand that the ExpressRoute Circuit SKU determines where an ExpressRoute circuit can connect to. Each SKU has a specific scope of supported regions (same metro/same geo/cross-geo):
+To create an optimal geo-redundant ExpressRoute Circuit design, it is important to understand that the ExpressRoute Circuit SKU determines where an ExpressRoute circuit can connect to. Each SKU has a specific scope of supported regions (same metro/same geo/cross-geo):
 
 ![](images/er-circuit-skus.png)
+
+See [this great repo](https://github.com/Danieleg82/Exr-Bowtie) to learn more about the the benefits of Expressroute bow-tie designs.
 
 ### Solution #2: S2S VPN backup
 
