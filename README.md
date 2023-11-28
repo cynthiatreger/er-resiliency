@@ -1,6 +1,6 @@
 # Understanding ExpressRoute private peering to address ExpressRoute resiliency
 
-This article is co-authored by Microsoft colleague [David Santiago](https://github.com/dawlysd).
+This article is co-authored by Microsoft colleague [David Santiago](https://github.com/davidsntg).
 
 - [Scope](#scope)
 - [1. ExpressRoute components](#1-expressroute-components)
