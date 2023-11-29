@@ -146,4 +146,6 @@ As per [Route Advertisement limits documentation](https://learn.microsoft.com/en
 
 ![](images/route-advertisement-limits.png)
 
+[Custom alerts](https://learn.microsoft.com/en-us/azure/expressroute/how-to-custom-route-alert) can be configured to monitor advertised routes over ExpressRoute.
+
  It is essential to consider the ExpressRoute Circuit SKU and the specific route advertisement limit it offers while planning your network architecture.
